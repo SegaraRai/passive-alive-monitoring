@@ -116,7 +116,7 @@
     <script src="https://sdk.push7.jp/v2/p7sdk.js"></script>
     <script>
       async function p7init() {
-        const response = await fetch('api/p7id');
+        const response = await fetch('api/p7/id');
 
         if (!response.ok) {
           throw new Error('failed to fetch p7id');
