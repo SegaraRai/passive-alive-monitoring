@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "env": {
+    "SECRET_KVDB_BUCKET": "@kvdb_bucket",
+    "SECRET_KVDB_KEY_PREFIX": "@kvdb_key_prefix",
+    "SECRET_KVDB_READKEY": "@kvdb_readkey",
+    "SECRET_KVDB_WRITEKEY": "@kvdb_writekey",
+    "SECRET_UPDATE_KEY": "@update_key",
+    "IS_NOW": "true"
+  },
+  "public": false
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Passive alive monitor</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      body {
+        line-height: 1.75;
+        padding: 8px;
+      }
+
+      #table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #table thead tr {
+        border-bottom: solid 1px #000;
+      }
+
+      #table tbody tr:not(:last-child) {
+        border-bottom: solid 1px #555;
+      }
+
+      #table th {
+        text-align: left;
+      }
+
+      #message {
+        margin-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table">
+      <thead id="thead">
+        <tr>
+          <th class="id">ID</th>
+          <th class="last-update">Last Update</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div id="message"></div>
+    <!-- -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"
+      integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
+    <script>
+      moment.locale(window.navigator.userLanguage || window.navigator.language);
+
+      async function update() {
+        const tableFormatSpec = 'LLLL';
+        const footerFormatSpec = 'LTS';
+
+        const columns = document.getElementById('thead').firstElementChild.childElementCount;
+
+        const now = Date.now();
+        const nowMoment = moment(now);
+
+        const response = await fetch('api/statuses');
+
+        if (!response.ok) {
+          throw new Error('failed to fetch statuses');
+        }
+
+        const items = await response.json();
+
+        const tbody = document.getElementById('tbody');
+
+        while (tbody.children.length > items.length) {
+          tbody.removeChild(tbody.firstElementChild);
+        }
+
+        while (tbody.children.length < items.length) {
+          const tr = document.createElement('tr');
+          for (let i = 0; i < columns; i++) {
+            const td = document.createElement('td');
+            tr.appendChild(td);
+          }
+          tbody.appendChild(tr);
+        }
+
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const { id, lastUpdate } = item;
+          const lastUpdateMoment = lastUpdate && moment(lastUpdate);
+
+          const tr = tbody.children[i];
+          const td1 = tr.children[0];
+          td1.innerText = id;
+          const td2 = tr.children[1];
+          td2.innerText = lastUpdate ? `${lastUpdateMoment.format(tableFormatSpec)} (${lastUpdateMoment.from(nowMoment)})` : '(no data)';
+        }
+
+        const message = document.getElementById('message');
+        message.innerText = nowMoment.format(footerFormatSpec);
+      }
+
+      update();
+      setInterval(update, 5 * 60 * 1000);
+    </script>
+  </body>
+</html>
