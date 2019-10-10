@@ -6,7 +6,13 @@
     "SECRET_KVDB_READKEY": "@kvdb_readkey",
     "SECRET_KVDB_WRITEKEY": "@kvdb_writekey",
     "SECRET_PUSH7_APPID": "@push7_appid",
+    "SECRET_PUSH7_APIKEY": "@push7_apikey",
     "SECRET_UPDATE_KEY": "@update_key",
+    "SECRET_PUSH_KEY": "@push_key",
+    "SECRET_NOTIFICATION_TITLE": "@notification_title",
+    "SECRET_NOTIFICATION_BODY": "@notification_body",
+    "SECRET_NOTIFICATION_URL": "@notification_url",
+    "SECRET_NOTIFICATION_ICON": "@notification_icon",
     "IS_NOW": "true"
   },
   "public": false
