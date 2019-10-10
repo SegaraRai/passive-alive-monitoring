@@ -9,12 +9,11 @@ const writeKey = process.env.SECRET_KVDB_WRITEKEY;
 export async function get(key: string): Promise<string | null> {
   const url = baseUrl + key;
 
-  const headers = new Headers();
-  headers.set('Authorization', 'Basic ' + Buffer.from(readKey + ':').toString('base64'));
-
   const response = await fetch(url, {
     method: 'GET',
-    headers,
+    headers: {
+      Authorization: 'Basic ' + Buffer.from(readKey + ':').toString('base64'),
+    },
   });
 
   if (response.status === 404) {
@@ -34,13 +33,12 @@ export async function get(key: string): Promise<string | null> {
 export async function set(key: string, value: string) {
   const url = baseUrl + key;
 
-  const headers = new Headers();
-  headers.set('Authorization', 'Basic ' + Buffer.from(writeKey + ':').toString('base64'));
-
   const response = await fetch(url, {
     method: 'POST',
-    headers,
     body: value,
+    headers: {
+      Authorization: 'Basic ' + Buffer.from(writeKey + ':').toString('base64'),
+    },
   });
 
   if (!response.ok) {
