@@ -5,7 +5,7 @@ import { serializeLastUpdate } from '../_utils/util';
 
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const id = req.query.id as string;
+  const id = String(req.query.id);
 
   if (!idSet.has(id)) {
     res.status(404).send('404');
