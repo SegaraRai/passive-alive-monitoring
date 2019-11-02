@@ -19,7 +19,7 @@ export const config: Config = {
     {
       id: 'rai-raspi',
       name: 'Rai\'s raspi',
-      threshold: 20 * 60 * 1000,
+      threshold: 3 * 60 * 1000,
     },
   ],
   contextKey: 'context',
