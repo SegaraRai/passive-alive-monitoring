@@ -1,4 +1,4 @@
-import fetch, { Headers } from 'node-fetch';
+import fetch from 'node-fetch';
 
 
 const baseUrl = `https://kvdb.io/${process.env.SECRET_KVDB_BUCKET}/${process.env.SECRET_KVDB_KEY_PREFIX}`;

@@ -44,7 +44,10 @@
       <thead id="thead">
         <tr>
           <th class="id">ID</th>
+          <th class="name">Name</th>
+          <th class="threshold">Threshold</th>
           <th class="last-update">Last Update</th>
+          <th class="status">Status</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -90,14 +93,21 @@
 
         for (let i = 0; i < items.length; i++) {
           const item = items[i];
-          const { id, lastUpdate } = item;
+          const { id, name, threshold, lastUpdate } = item;
           const lastUpdateMoment = lastUpdate && moment(lastUpdate);
 
+          const texts = [
+            id,
+            name,
+            moment.duration(threshold).humanize(),
+            lastUpdate ? `${lastUpdateMoment.format(tableFormatSpec)} (${lastUpdateMoment.from(nowMoment)})` : '(no data)',
+            lastUpdate ? (now - lastUpdate < threshold ? 'Up' : 'Down') : '(no data)',
+          ];
+
           const tr = tbody.children[i];
-          const td1 = tr.children[0];
-          td1.innerText = id;
-          const td2 = tr.children[1];
-          td2.innerText = lastUpdate ? `${lastUpdateMoment.format(tableFormatSpec)} (${lastUpdateMoment.from(nowMoment)})` : '(no data)';
+          for (let i = 0; i < texts.length; i++) {
+            tr.children[i].innerText = texts[i];
+          }
         }
 
         const message = document.getElementById('message');

@@ -5,7 +5,9 @@
     "SECRET_KVDB_KEY_PREFIX": "@kvdb_key_prefix",
     "SECRET_KVDB_READKEY": "@kvdb_readkey",
     "SECRET_KVDB_WRITEKEY": "@kvdb_writekey",
+    "SECRET_SLACK_WEBHOOK_URL": "@slack_webhook_url",
     "SECRET_UPDATE_KEY": "@update_key",
+    "SECRET_PUSH_KEY": "@push_key",
     "IS_NOW": "true"
   },
   "public": false

@@ -1,5 +1,7 @@
 import { NowRequest, NowResponse } from '@now/node';
-import { idSet } from '../_utils/deviceIds';
+
+import { config } from '../_utils/config';
+import { idSet } from '../_utils/device';
 import { set } from '../_utils/kvs';
 import { serializeLastUpdate } from '../_utils/util';
 
@@ -19,7 +21,7 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   const lastUpdate = Date.now();
 
-  await set(id, serializeLastUpdate(lastUpdate));
+  await set(config.deviceKeyPrefix + id, serializeLastUpdate(lastUpdate));
 
   res.json({
     id,
