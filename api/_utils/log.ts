@@ -7,8 +7,8 @@ function censorContent(content: string) {
     //[process.env.SECRET_KVDB_KEY_PREFIX, 'KVDB_KEY_PREFIX'],
     [process.env.SECRET_KVDB_READKEY, 'KVDB_READKEY'],
     [process.env.SECRET_KVDB_WRITEKEY, 'KVDB_WRITEKEY'],
-    [process.env.SECRET_PUSH_KEY, 'PUSH_KEY'],
-    [process.env.SECRET_UPDATE_KEY, 'UPDATE_KEY'],
+    [process.env.SECRET_USER_UPDATE_MASTER_KEY, 'USER_UPDATE_MASTER_KEY'],
+    [process.env.SECRET_SERVICE_UPDATE_KEY, 'SERVICE_UPDATE_KEY'],
     [process.env.SECRET_SLACK_WEBHOOK_URL, 'SLACK_WEBHOOK_URL'],
   ];
 

@@ -6,8 +6,8 @@
     "SECRET_KVDB_READKEY": "@pam_kvdb_readkey",
     "SECRET_KVDB_WRITEKEY": "@pam_kvdb_writekey",
     "SECRET_SLACK_WEBHOOK_URL": "@pam_slack_webhook_url",
-    "SECRET_UPDATE_KEY": "@pam_update_key",
-    "SECRET_PUSH_KEY": "@pam_push_key",
+    "SECRET_USER_UPDATE_MASTER_KEY": "@pam_user_update_master_key",
+    "SECRET_SERVICE_UPDATE_KEY": "@pam_service_update_key",
     "IS_NOW": "true"
   },
   "public": false

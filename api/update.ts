@@ -72,7 +72,7 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
     return;
   }
 
-  if (req.body.key !== process.env.SECRET_PUSH_KEY) {
+  if (req.body.key !== process.env.SECRET_SERVICE_UPDATE_KEY) {
     res.status(403).send('403');
     return;
   }
