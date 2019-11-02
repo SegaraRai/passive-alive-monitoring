@@ -53,6 +53,7 @@
       <tbody id="tbody"></tbody>
     </table>
     <div id="message"></div>
+    <div id="last-update"></div>
     <!-- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"
       integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
@@ -62,14 +63,28 @@
       async function update() {
         const tableFormatSpec = 'LLLL';
         const footerFormatSpec = 'LTS';
+        const lastUpdateFormatSpec = 'LLLL';
 
         const columns = document.getElementById('thead').firstElementChild.childElementCount;
 
         const now = Date.now();
         const nowMoment = moment(now);
 
-        const response = await fetch('api/statuses');
+        //
 
+        const infoResponse = await fetch('api/info');
+        if (!infoResponse.ok) {
+          throw new Error('failed to fetch info');
+        }
+
+        const info = await infoResponse.json();
+
+        const lastUpdateMessage = info.lastUpdate ? `${moment(info.lastUpdate).format(lastUpdateFormatSpec)} (${moment(info.lastUpdate).from(nowMoment)})` : '(no data)';
+        document.getElementById('last-update').innerText = lastUpdateMessage;
+
+        //
+
+        const response = await fetch('api/statuses');
         if (!response.ok) {
           throw new Error('failed to fetch statuses');
         }
