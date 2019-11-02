@@ -17,8 +17,8 @@ export interface Config {
 export const config: Config = {
   devices: [
     {
-      id: 'raspi',
-      name: 'raspi',
+      id: 'rai-raspi',
+      name: 'Rai\'s raspi',
       threshold: 20 * 60 * 1000,
     },
   ],
