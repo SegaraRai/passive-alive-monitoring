@@ -37,10 +37,6 @@
       #message {
         margin-top: 1em;
       }
-
-      .p7button {
-        margin-top: 1em;
-      }
     </style>
   </head>
   <body>
@@ -54,7 +50,6 @@
       <tbody id="tbody"></tbody>
     </table>
     <div id="message"></div>
-    <div class="p7button" data-align="right" data-button-text="Subscribe"></div>
     <!-- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"
       integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
@@ -111,23 +106,6 @@
 
       update();
       setInterval(update, 5 * 60 * 1000);
-    </script>
-    <!-- -->
-    <script src="https://sdk.push7.jp/v2/p7sdk.js"></script>
-    <script>
-      async function p7init() {
-        const response = await fetch('api/p7/id');
-
-        if (!response.ok) {
-          throw new Error('failed to fetch p7id');
-        }
-
-        const p7id = await response.text();
-
-        p7.init(p7id);
-      }
-
-      p7init();
     </script>
   </body>
 </html>

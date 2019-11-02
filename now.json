@@ -5,8 +5,6 @@
     "SECRET_KVDB_KEY_PREFIX": "@kvdb_key_prefix",
     "SECRET_KVDB_READKEY": "@kvdb_readkey",
     "SECRET_KVDB_WRITEKEY": "@kvdb_writekey",
-    "SECRET_PUSH7_APPID": "@push7_appid",
-    "SECRET_PUSH7_APIKEY": "@push7_apikey",
     "SECRET_UPDATE_KEY": "@update_key",
     "SECRET_PUSH_KEY": "@push_key",
     "SECRET_NOTIFICATION_TITLE": "@notification_title",
