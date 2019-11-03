@@ -25,6 +25,6 @@ export const config: Config = {
   contextKey: 'context',
   lastUpdateKey: 'lastUpdate',
   deviceKeyPrefix: 'device-',
-  minUpdateInterval: (1 * 60 - 10) * 1000,
+  minUpdateInterval: (1 * 60 - 60) * 1000,
   maxUpdateInterval: (5 * 60 + 10) * 1000,
 };

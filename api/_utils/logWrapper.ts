@@ -13,8 +13,7 @@ export function logWrapper(func: NowFunction) {
       error = error instanceof Error ? error : String(error);
       await logError(error);
 
-      //throw error;
-      res.status(503).send(503);
+      throw error;
     }
   };
 }
