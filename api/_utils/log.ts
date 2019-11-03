@@ -1,4 +1,4 @@
-import { Response } from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 
 function censorContent(content: string) {
