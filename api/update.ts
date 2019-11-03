@@ -84,7 +84,7 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
     return;
   }
 
-  promises.push(set(config.lastUpdateKey, currentTime.toString(10)));
+  await set(config.lastUpdateKey, currentTime.toString(10));
 
   if (currentTime - lastUpdate > config.maxUpdateInterval) {
     const strSince = moment(lastUpdate).tz('Asia/Tokyo').locale('en').format();
