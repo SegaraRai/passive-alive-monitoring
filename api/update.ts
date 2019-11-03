@@ -1,5 +1,6 @@
 import { NowRequest, NowResponse } from '@now/node';
 import moment = require('moment');
+require('moment-timezone');
 
 import { Device, config } from './_utils/config';
 import { get, set } from './_utils/kvs';
