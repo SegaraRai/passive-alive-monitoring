@@ -30,16 +30,10 @@ function nanAsZero(number: number): number {
 }
 
 
-async function checkDevice(currentTime: number, context: Context, device: Device) {
+async function checkDevice(device: Device, deviceInfo: DeviceInfo, currentTime: number) {
   const deviceLastUpdate = deserializeLastUpdate(await get(config.deviceKeyPrefix + device.id));
 
   const currentUp = deviceLastUpdate != null && currentTime - deviceLastUpdate < device.threshold;
-
-  const deviceInfo = context.devices.find(d => d.id === device.id) || {
-    id: device.id,
-    up: false,
-    since: currentTime,
-  };
 
   if (deviceInfo.up === currentUp) {
     return;
@@ -104,7 +98,13 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
 
   //
 
-  promises.concat(config.devices.map(device => checkDevice(currentTime, context, device)));
+  context.devices = config.devices.map(device => (context.devices.find(d => d.id === device.id) || {
+    id: device.id,
+    up: false,
+    since: currentTime,
+  }));
+
+  promises.concat(config.devices.map(device => checkDevice(device, context.devices.find(d => d.id === device.id)!, currentTime)));
 
   //
 
