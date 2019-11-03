@@ -12,7 +12,7 @@ const postConfig = [
       {
         color: actionData.status.type === 'up' ? 'good' : 'danger',
         title: `${actionData.device.name}`,
-        text: `<!here> **${actionData.device.name}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+        text: `<!here> *${actionData.device.name}* is *${actionData.status.type.toUpperCase()}* now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
       }
     ],
   }),
@@ -23,7 +23,7 @@ const postConfig = [
       {
         color: actionData.status.type === 'up' ? 'good' : 'danger',
         title: `${actionData.device.name}`,
-        text: `**${actionData.device.name}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+        text: `*${actionData.device.name}* is *${actionData.status.type.toUpperCase()}* now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
       }
     ],
   }),
