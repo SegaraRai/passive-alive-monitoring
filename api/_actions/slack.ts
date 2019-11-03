@@ -32,7 +32,6 @@ const postConfig = [
 
 async function post(config: typeof postConfig[0], actionData: ActionData) {
   const body = config(actionData);
-  console.log(body);
 
   const response = await fetch(process.env.SECRET_SLACK_WEBHOOK_URL, {
     method: 'POST',

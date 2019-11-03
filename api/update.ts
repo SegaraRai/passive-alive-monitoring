@@ -113,6 +113,8 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
 
   //
 
+  console.log(context);
+
   await set(config.contextKey, JSON.stringify(context));
 
   //
