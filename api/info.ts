@@ -14,6 +14,7 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
   const lastUpdate = parseInt(String(await get(config.lastUpdateKey)), 10);
 
   const data = {
+    currentTime: Date.now(),
     lastUpdate: isNaN(lastUpdate) ? null : lastUpdate,
   };
 

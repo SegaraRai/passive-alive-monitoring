@@ -34,7 +34,7 @@
         text-align: left;
       }
 
-      #message {
+      #current-time {
         margin-top: 1em;
       }
     </style>
@@ -52,8 +52,8 @@
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    <div id="message"></div>
-    <div id="last-update"></div>
+    <div id="current-time"></div>
+    <div id="global-last-update"></div>
     <!-- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"
       integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
@@ -61,14 +61,11 @@
       moment.locale(window.navigator.userLanguage || window.navigator.language);
 
       async function update() {
-        const tableFormatSpec = 'LLLL';
-        const footerFormatSpec = 'LTS';
         const lastUpdateFormatSpec = 'LLLL';
+        const currentTimeFormatSpec = 'LTS';
+        const globalLastUpdateFormatSpec = 'LLLL';
 
         const columns = document.getElementById('thead').firstElementChild.childElementCount;
-
-        const now = Date.now();
-        const nowMoment = moment(now);
 
         //
 
@@ -79,8 +76,17 @@
 
         const info = await infoResponse.json();
 
-        const lastUpdateMessage = info.lastUpdate ? `${moment(info.lastUpdate).format(lastUpdateFormatSpec)} (${moment(info.lastUpdate).from(nowMoment)})` : '(no data)';
-        document.getElementById('last-update').innerText = lastUpdateMessage;
+        const currentTime = new Date(info.currentTime);
+        const currentTimeMoment = moment(currentTime);
+
+        const globalLastUpdate = info.lastUpdate && new Date(info.lastUpdate);
+        const globalLastUpdateMoment = moment(globalLastUpdate);
+
+        const currentTimeElement = document.getElementById('current-time');
+        currentTimeElement.innerText = currentTimeMoment.format(currentTimeFormatSpec);
+
+        const globalLastUpdateElement = document.getElementById('global-last-update');
+        globalLastUpdateElement.innerText = globalLastUpdate ? `${globalLastUpdateMoment.format(globalLastUpdateFormatSpec)} (${globalLastUpdateMoment.from(currentTimeMoment)})` : '(no data)';
 
         //
 
@@ -115,8 +121,8 @@
             id,
             name,
             moment.duration(threshold).humanize(),
-            lastUpdate ? `${lastUpdateMoment.format(tableFormatSpec)} (${lastUpdateMoment.from(nowMoment)})` : '(no data)',
-            lastUpdate ? (now - lastUpdate < threshold ? 'Up' : 'Down') : '(no data)',
+            lastUpdate ? `${lastUpdateMoment.format(lastUpdateFormatSpec)} (${lastUpdateMoment.from(currentTimeMoment)})` : '(no data)',
+            lastUpdate ? (currentTime - lastUpdate < threshold ? 'Up' : 'Down') : '(no data)',
           ];
 
           const tr = tbody.children[i];
@@ -124,9 +130,6 @@
             tr.children[i].innerText = texts[i];
           }
         }
-
-        const message = document.getElementById('message');
-        message.innerText = nowMoment.format(footerFormatSpec);
       }
 
       update();
