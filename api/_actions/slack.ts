@@ -8,12 +8,24 @@ const postConfig = [
   (actionData: ActionData) => ({
     username: 'PAM bot',
     channel: `#-${actionData.device.id}`,
-    text: `@here **${actionData.device.id}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+    attachments: [
+      {
+        color: actionData.status.type === 'up' ? 'good' : 'danger',
+        title: `${actionData.device.name}`,
+        text: `<!here> **${actionData.device.name}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+      }
+    ],
   }),
   (actionData: ActionData) => ({
     username: 'PAM bot',
     channel: `#everything`,
-    text: `**${actionData.device.id}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+    attachments: [
+      {
+        color: actionData.status.type === 'up' ? 'good' : 'danger',
+        title: `${actionData.device.name}`,
+        text: `**${actionData.device.name}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+      }
+    ],
   }),
 ];
 
