@@ -58,6 +58,8 @@ async function checkDevice(device: Device, deviceInfo: DeviceInfo, currentTime: 
 
   deviceInfo.since = currentTime;
   deviceInfo.up = currentUp;
+
+  console.log(deviceInfo);
 }
 
 
@@ -108,6 +110,8 @@ export default logWrapper(async (req: NowRequest, res: NowResponse) => {
   promises.concat(config.devices.map(device => checkDevice(device, context.devices.find(d => d.id === device.id)!, currentTime)));
 
   //
+
+  console.log(context);
 
   await Promise.all(promises);
 
