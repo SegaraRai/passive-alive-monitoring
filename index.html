@@ -84,9 +84,13 @@
 
         const currentTimeElement = document.getElementById('current-time');
         currentTimeElement.innerText = currentTimeMoment.format(currentTimeFormatSpec);
+        currentTimeElement.title = currentTimeMoment.format();
 
         const globalLastUpdateElement = document.getElementById('global-last-update');
         globalLastUpdateElement.innerText = globalLastUpdate ? `${globalLastUpdateMoment.format(globalLastUpdateFormatSpec)} (${globalLastUpdateMoment.from(currentTimeMoment)})` : '(no data)';
+        if (globalLastUpdate) {
+          globalLastUpdateElement.title = globalLastUpdateMoment.format();
+        }
 
         //
 
@@ -128,6 +132,10 @@
           const tr = tbody.children[i];
           for (let i = 0; i < texts.length; i++) {
             tr.children[i].innerText = texts[i];
+          }
+
+          if (lastUpdate) {
+            tr.children[3].title = lastUpdateMoment.format();
           }
         }
       }
