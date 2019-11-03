@@ -1,32 +1,30 @@
 import fetch from 'node-fetch';
 
-import { formatText } from '../_utils/format';
 import { logFetchError } from '../_utils/log';
 import { ActionData } from '.';
 
 
 const postConfig = [
-  {
+  (actionData: ActionData) => ({
     username: 'PAM bot',
-    channel: '#-{{device.id}}',
-    text: '@here **{{device.id}}** is **{{status.type}}** now!\n({{status.strDuration}}, since {{status.strSince}})',
-  },
-  {
+    channel: `#-${actionData.device.id}'`,
+    text: `@here **${actionData.device.id}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+  }),
+  (actionData: ActionData) => ({
     username: 'PAM bot',
-    channel: '#everything',
-    text: '**{{device.id}}** is **{{status.type}}** now!\n({{status.strDuration}}, since {{status.strSince}})',
-  },
+    channel: `#everything`,
+    text: `**${actionData.device.id}** is **${actionData.status.type}** now!\n(${actionData.status.strDuration}, since ${actionData.status.strSince})`,
+  }),
 ];
 
 
 async function post(config: typeof postConfig[0], actionData: ActionData) {
+  const body = config(actionData);
+  console.log(body);
+
   const response = await fetch(process.env.SECRET_SLACK_WEBHOOK_URL, {
     method: 'POST',
-    body: JSON.stringify({
-      channel: formatText(config.channel, actionData),
-      username: formatText(config.username, actionData),
-      text: formatText(config.text, actionData),
-    }),
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
     },
